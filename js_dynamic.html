@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        #add{
+            background-color:rgb(255, 154, 154)
+        }
+        #del{
+            background-color:hsl(235, 100%, 77%)
+        }
+    </style>
+</head>
+
+<body>
+   <h2>Dynamic web page</h2>
+   <input type = "text" id="word">
+   <input type = "button" id="add" value = "추가" >
+   <input type = "button" id = "del" value = "삭제">
+   <ul id = "list"></ul>
+</body>
+<script>
+    
+    function addB(){
+        const add = document.getElementById("add"); //버튼 자체를 가지고 있는 것
+        const input = document.getElementById("word"); //사용자가 입력한 텍스트
+        
+        const ul = document.getElementById("list"); //리스트
+        
+        add.addEventListener('click', () => { // 클릭하면 익명 함수 실행하기
+            const text = input.value; //입력창에 실제로 쓴 글자
+            if(text === "") return; // 없으면 리턴
+
+            const arr = text.split(',');//split으로 짜르기??
+
+            for(let i = 0; i<arr.length; i++){
+               const li = document.createElement("li"); //li 형식 만들기
+                li.textContent = arr[i];
+                ul.appendChild(li); //ul리스트에 li 넣기
+            }
+
+             //입력한 텍스트를 li 항목에 넣기 + 배열을 어떻게 넣지??
+            
+            input.value = ""; //입력창 비우기
+        });
+}
+
+
+    function delB(){
+      
+            const del = document.getElementById("del");
+            const ul = document.getElementById("list");
+            
+             del.addEventListener('click', () => {
+                if(ul.lastChild) ul.lastChild.remove(); //만약 리스트에 항목이 하나라도 있으면, 마지막 항목을 지워라
+            });
+        }
+    
+    document.addEventListener("DOMContentLoaded", function() { //HTML 요소들이 다 만들어진 뒤에 JS 함수를 실행하라, 그래서 DOM이 준비된 후에 실행되도록 안전하게 감싸는 것
+        addB();
+        delB();
+    });
+</script>
+</html>
+  
